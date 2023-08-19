@@ -1,1 +1,1 @@
-export const SET_FILTER = 'filter/set';
+export const getFilter = store => store.filter;
