@@ -1,20 +1,33 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import css from './App.module.css';
-import { nanoid } from 'nanoid';
-
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import Notification from './Notification';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact, removeContact } from 'redux/contacts/contacts-actions';
+import { setFilter } from 'redux/filter/filter-actions';
+import { getContacts } from 'redux/contacts/contacts-selectors';
+import { getFilter } from 'redux/filter/filter-selectors';
 
 function App() {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem('contacts')) ?? []
-  );
-  const [filter, setFilter] = useState('');
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  const dispatch = useDispatch();
+
+  const onAddContact = ({ name, number }) => {
+    if (isDublicate(name)) {
+      alert(`${name} is already in contacts`);
+      return false;
+    }
+    const action = addContact({ name, number });
+    dispatch(action);
+  };
+
+  const onRemoveContact = payload => {
+    dispatch(removeContact(payload));
+  };
 
   const isDublicate = name => {
     const normalizedName = name.toLowerCase();
@@ -24,24 +37,8 @@ function App() {
     return Boolean(result);
   };
 
-  const addContact = ({ name, number }) => {
-    if (isDublicate(name)) {
-      alert(`${name} is already in contacts`);
-      return false;
-    }
-
-    const contact = {
-      id: nanoid(),
-      name: name,
-      number: number,
-    };
-
-    setContacts(prevContacts => [...prevContacts, contact]);
-    return true;
-  };
-
   const changeFilter = event => {
-    setFilter(event.currentTarget.value.trim());
+    dispatch(setFilter(event.currentTarget.value.trim()));
   };
 
   const getVisisbleContacts = () => {
@@ -51,16 +48,10 @@ function App() {
     );
   };
 
-  const deleteContact = todoId => {
-    setContacts(prevState =>
-      prevState.filter(contact => contact.id !== todoId)
-    );
-  };
-
   return (
     <div className={css.phonebookContainer}>
       <h1 className={css.titlePhonebook}>Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
+      <ContactForm onSubmit={onAddContact} />
 
       <h2 className={css.titleContacts}>Contacts</h2>
       <div className={css.allContacts}>All contacts: {contacts.length}</div>
@@ -69,7 +60,7 @@ function App() {
           <Filter value={filter} onChange={changeFilter} />
           <ContactList
             contacts={getVisisbleContacts()}
-            onDeleteContact={deleteContact}
+            onDeleteContact={onRemoveContact}
           />
         </>
       ) : (

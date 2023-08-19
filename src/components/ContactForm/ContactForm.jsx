@@ -22,12 +22,9 @@ function ContactForm({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const result = onSubmit({ name, number });
-    // result true or false
-    if (result) {
-      setName('');
-      setNumber('');
-    }
+    onSubmit({ name, number });
+    setName('');
+    setNumber('');
   };
 
   return (
