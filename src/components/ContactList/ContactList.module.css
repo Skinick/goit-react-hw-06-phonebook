@@ -1,0 +1,10 @@
+.list {
+  width: 390px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(72, 157, 242, 1);
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 10px 13px 13px -8px rgba(135, 186, 240, 1);
+}

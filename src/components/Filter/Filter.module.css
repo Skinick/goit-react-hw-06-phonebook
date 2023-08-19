@@ -1,0 +1,16 @@
+.filter {
+  margin-bottom: 15px;
+}
+
+.filterInput {
+  margin-left: 20px;
+  border-width: 1px;
+  border-color: rgb(116, 181, 245);
+  font-size: 18px;
+}
+
+.filterInput:focus,
+.filterInput:hover,
+.filterInput:active {
+  outline-color: rgb(116, 181, 245);
+}
