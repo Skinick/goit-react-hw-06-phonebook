@@ -7,11 +7,15 @@ import Notification from './Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact, removeContact } from 'redux/contacts/contacts-slice';
 import { setFilter } from 'redux/filter/filter-slice';
-import { getContacts } from 'redux/contacts/contacts-selectors';
+import {
+  getContacts,
+  getFilteredContacts,
+} from 'redux/contacts/contacts-selectors';
 import { getFilter } from 'redux/filter/filter-selectors';
 
 function App() {
   const contacts = useSelector(getContacts);
+  const filteredContacts = useSelector(getFilteredContacts);
   const filter = useSelector(getFilter);
 
   const dispatch = useDispatch();
@@ -41,13 +45,6 @@ function App() {
     dispatch(setFilter(event.currentTarget.value.trim()));
   };
 
-  const getVisisbleContacts = () => {
-    const normalizedFilter = filter.toLocaleLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(normalizedFilter)
-    );
-  };
-
   return (
     <div className={css.phonebookContainer}>
       <h1 className={css.titlePhonebook}>Phonebook</h1>
@@ -59,7 +56,7 @@ function App() {
         <>
           <Filter value={filter} onChange={changeFilter} />
           <ContactList
-            contacts={getVisisbleContacts()}
+            contacts={filteredContacts}
             onDeleteContact={onRemoveContact}
           />
         </>
