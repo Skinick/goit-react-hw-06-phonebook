@@ -6,7 +6,7 @@ import Filter from './Filter';
 import Notification from './Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact, removeContact } from 'redux/contacts/contacts-slice';
-import { setFilter } from 'redux/filter/filter-actions';
+import { setFilter } from 'redux/filter/filter-slice';
 import { getContacts } from 'redux/contacts/contacts-selectors';
 import { getFilter } from 'redux/filter/filter-selectors';
 
