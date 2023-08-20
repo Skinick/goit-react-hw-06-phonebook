@@ -4,6 +4,7 @@ import css from './ContactList.module.css';
 import ContactListItem from 'components/ContactListItem';
 
 const ContactList = () => {
+
   const contacts = useSelector(getFilteredContacts);
   return (
     <ul className={css.list}>

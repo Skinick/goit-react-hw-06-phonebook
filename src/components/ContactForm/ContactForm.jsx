@@ -30,6 +30,7 @@ const ContactForm = () => {
     const isNameAdded = contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
+
     const isNumberAdded = contacts.some(contact => contact.number === number);
     if (isNameAdded) {
       Notify.failure(`${name} is alredy in contacts`);
@@ -45,9 +46,7 @@ const ContactForm = () => {
   };
 
   const onAddContact = ({ name, number }) => {
-    // console.log(payload);
     const action = addContact({ name, number });
-    // console.log(action);
     dispatch(action);
   };
 

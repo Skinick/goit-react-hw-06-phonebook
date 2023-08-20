@@ -15,6 +15,7 @@ function App() {
       <ContactForm />
       <h2 className={css.titleContacts}>Contacts</h2>
       <div className={css.allContacts}>All contacts: {contacts.length}</div>
+
       {isContacts ? (
         <>
           <Filter />

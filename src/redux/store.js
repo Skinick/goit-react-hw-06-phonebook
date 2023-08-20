@@ -9,9 +9,9 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { contactsReducer } from './contacts/contacts-slice';
 import { filterReducer } from './filter/filter-slice';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
   key: 'contacts',
